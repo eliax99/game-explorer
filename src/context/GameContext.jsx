@@ -1,44 +1,44 @@
 import { createContext, useState, useEffect } from "react";
 
-// Creamos el contexto
 export const GameContext = createContext();
 
 function GameProvider({ children }) {
-  // Estado para guardar los juegos
   const [games, setGames] = useState([]);
-
-  // Estado para saber si está cargando
   const [loading, setLoading] = useState(false);
 
-  const API_KEY = "TU_API_KEY"; 
+  const API_KEY = "3ebf20939d0142668830a20967c06f5b";
 
-  // Función para obtener juegos de la API
   const fetchGames = async (search = "") => {
-    setLoading(true); // empieza carga
-
+    setLoading(true);
     try {
-      const url = search
-        ? `https://api.rawg.io/api/games?key=${API_KEY}&search=${search}`
-        : `https://api.rawg.io/api/games?key=${API_KEY}`;
+      // Si search no es string (ej. un evento), usamos vacío.
+      const queryText = typeof search === "string" ? search.trim() : "";
+      
+      const url = queryText 
+        ? `https://api.gamebrain.co/v1/games?query=${encodeURIComponent(queryText)}`
+        : `https://api.gamebrain.co/v1/games`;
 
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        headers: { "x-api-key": API_KEY }
+      });
+
       const data = await res.json();
+      
+      // La API devuelve los juegos en .results
+      setGames(data.results || []);
 
-      setGames(data.results); // guardamos juegos
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching games:", error);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false); // termina carga
   };
 
-  // Se ejecuta al iniciar la app
   useEffect(() => {
     fetchGames();
   }, []);
 
   return (
-    // Compartimos datos con toda la app
     <GameContext.Provider value={{ games, loading, fetchGames }}>
       {children}
     </GameContext.Provider>
