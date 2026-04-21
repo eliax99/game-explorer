@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { GameContext } from "../context/GameContext";
 import GameCard from "../components/GameCard";
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
 
 function HomePage() {
   const { games, loading, fetchGames } = useContext(GameContext);
@@ -9,7 +10,6 @@ function HomePage() {
 
   return (
     <div className="page">
-
       {/* 🔥 TITULO */}
       <Link to="/" className="titleLink">
         <h1 className="title">Game Explorer 🎮</h1>
@@ -22,15 +22,18 @@ function HomePage() {
           placeholder="Buscar juego..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              fetchGames(search);
+            }
+          }}
         />
 
-        <button onClick={() => fetchGames(search)}>
-          Buscar
-        </button>
+        <button onClick={() => fetchGames(search)}>Buscar</button>
       </div>
 
       {/* ⏳ LOADING */}
-      {loading && <p className="center">Cargando juegos...</p>}
+      {loading && <Loader />}
 
       {/* 🎮 GRID */}
       <div className="gridHome">
@@ -38,7 +41,6 @@ function HomePage() {
           <GameCard key={game.id} game={game} />
         ))}
       </div>
-
     </div>
   );
 }

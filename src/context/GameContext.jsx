@@ -11,6 +11,8 @@ function GameProvider({ children }) {
   const fetchGames = async (search = "") => {
     setLoading(true);
 
+    const startTime = Date.now(); // ⏱️ inicio del loading
+
     try {
       const queryText = typeof search === "string" ? search.trim() : "";
 
@@ -26,21 +28,21 @@ function GameProvider({ children }) {
 
       const data = await res.json();
 
-      console.log("API RESPONSE:", data); // 👈 IMPORTANTE
-
-      // 🔥 PROTECCIÓN TOTAL
-      if (!data) {
-        setGames([]);
-        return;
-      }
-
-      setGames(Array.isArray(data.results) ? data.results : []);
+      setGames(data.results || []);
 
     } catch (error) {
       console.error("FETCH ERROR:", error);
       setGames([]);
     } finally {
-      setLoading(false);
+      // ⏱️ forzar mínimo 1s de loader
+      const elapsed = Date.now() - startTime;
+      const minTime = 1000;
+
+      const wait = Math.max(minTime - elapsed, 0);
+
+      setTimeout(() => {
+        setLoading(false);
+      }, wait);
     }
   };
 
