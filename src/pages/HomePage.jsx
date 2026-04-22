@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { GameContext } from "../context/GameContext";
 import GameCard from "../components/GameCard";
 import { Link } from "react-router-dom";
@@ -8,13 +8,24 @@ import useGameSearch from "../hooks/useGameSearch";
 function HomePage() {
   const { games, loading, fetchGames } = useContext(GameContext);
 
-  // 🔥 hook personalizado
   const { search, setSearch, handleSearch } = useGameSearch(fetchGames);
+
+  // 🔥 RESET COMPLETO
+  const handleReset = () => {
+    setSearch(""); // limpia input
+    fetchGames(); // vuelve a traer juegos iniciales
+  };
+
+  const renderedGames = useMemo(() => {
+    return games
+      .slice(0, 9)
+      .map((game) => <GameCard key={game.id} game={game} />);
+  }, [games]);
 
   return (
     <div className="page">
-      {/* 🔥 TITULO */}
-      <Link to="/" className="titleLink">
+      {/* 🔥 TITULO (RESET + HOME) */}
+      <Link to="/" className="titleLink" onClick={handleReset}>
         <h1 className="title">Game Explorer 🎮</h1>
       </Link>
 
@@ -39,11 +50,7 @@ function HomePage() {
       {loading && <Loader />}
 
       {/* 🎮 GRID */}
-      <div className="gridHome">
-        {games.map((game) => (
-          <GameCard key={game.id} game={game} />
-        ))}
-      </div>
+      <div className="gridHome">{renderedGames}</div>
     </div>
   );
 }

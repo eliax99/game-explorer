@@ -42,10 +42,20 @@ function GameDetailPage() {
   return (
     <div className="page">
 
-      <div
-        className="hero"
-        style={{ backgroundImage: `url(${game.image})` }}
-      >
+      <div className="hero">
+        {game.gameplay ? (
+          <iframe
+            src={game.gameplay}
+            title="Gameplay"
+            className="heroVideo"
+            allowFullScreen
+          />
+        ) : (
+          <div
+            className="heroFallback"
+            style={{ backgroundImage: `url(${game.image})` }}
+          />
+        )}
         <div className="heroOverlay">
           <button className="backButton" onClick={() => navigate(-1)}>
             ← Volver
@@ -56,18 +66,6 @@ function GameDetailPage() {
 
       <div className="container">
         <p>{game.description}</p>
-
-        {game.gameplay && (
-          <>
-            <h2>Gameplay</h2>
-            <iframe
-              src={game.gameplay}
-              title="Gameplay"
-              className="video"
-              allowFullScreen
-            />
-          </>
-        )}
 
         {game.screenshots && (
           <>
