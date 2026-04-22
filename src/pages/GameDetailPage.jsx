@@ -1,27 +1,43 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Loader from "../components/Loader";
 
 function GameDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [game, setGame] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const API_KEY = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     const fetchGame = async () => {
-      const res = await fetch(`https://api.gamebrain.co/v1/games/${id}`, {
-        headers: { "x-api-key": API_KEY }
-      });
+      setLoading(true);
 
-      const data = await res.json();
-      setGame(data);
+      try {
+        const res = await fetch(`https://api.gamebrain.co/v1/games/${id}`, {
+          headers: { "x-api-key": API_KEY }
+        });
+
+        const data = await res.json();
+
+        // ⏳ esperamos mínimo 200ms
+        setTimeout(() => {
+          setGame(data);
+          setLoading(false);
+        }, 200);
+
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
     };
 
     fetchGame();
   }, [id]);
 
-  if (!game) return <p className="center">Cargando...</p>;
+  if (loading) return <Loader />;
 
   return (
     <div className="page">

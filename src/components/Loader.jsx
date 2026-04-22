@@ -2,7 +2,7 @@ function Loader() {
   return (
     <div className="loaderWrapper">
       <div className="loader"></div>
-      <p className="loaderText">Cargando juegos...</p>
+      <p className="loaderText">Cargando...</p>
     </div>
   );
 }

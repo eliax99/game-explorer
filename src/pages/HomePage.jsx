@@ -1,12 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { GameContext } from "../context/GameContext";
 import GameCard from "../components/GameCard";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
+import useGameSearch from "../hooks/useGameSearch";
 
 function HomePage() {
   const { games, loading, fetchGames } = useContext(GameContext);
-  const [search, setSearch] = useState("");
+
+  // 🔥 hook personalizado
+  const { search, setSearch, handleSearch } = useGameSearch(fetchGames);
 
   return (
     <div className="page">
@@ -24,12 +27,12 @@ function HomePage() {
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              fetchGames(search);
+              handleSearch();
             }
           }}
         />
 
-        <button onClick={() => fetchGames(search)}>Buscar</button>
+        <button onClick={handleSearch}>Buscar</button>
       </div>
 
       {/* ⏳ LOADING */}
