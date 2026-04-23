@@ -1,8 +1,10 @@
+import styles from "../styles/loader.module.css";
+
 function Loader() {
   return (
-    <div className="loaderWrapper">
-      <div className="loader"></div>
-      <p className="loaderText">Cargando...</p>
+    <div className={styles.loaderWrapper}>
+      <div className={styles.loader}></div>
+      <p className={styles.loaderText}>Cargando...</p>
     </div>
   );
 }
