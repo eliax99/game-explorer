@@ -55,40 +55,82 @@ body {
 }
 
 /* =========================
-   SEARCH
+   SEARCH (FOCO PRINCIPAL)
 ========================= */
 .search {
   display: flex;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
+
+  position: relative;
 }
 
+/* CONTENEDOR con glow */
+.search::before {
+  content: "";
+  position: absolute;
+  width: 380px;
+  height: 50px;
+  background: rgba(255, 0, 92, 0.15);
+  filter: blur(25px);
+  z-index: -1;
+  border-radius: 12px;
+}
+
+/* INPUT */
 .search input {
-  width: 300px;
-  padding: 12px;
-  border: none;
+  width: 320px;
+  padding: 14px;
+  border: 1px solid rgba(255, 0, 92, 0.2);
   outline: none;
   background: #1a1c22;
   color: white;
-  border-radius: 8px 0 0 8px;
+
+  border-radius: 10px 0 0 10px;
   font-family: inherit;
+
+  transition: all 0.25s ease;
 }
 
+/* EFECTO FOCUS INPUT */
+.search input:focus {
+  border-color: #ff005c;
+  box-shadow:
+    0 0 10px rgba(255, 0, 92, 0.4),
+    inset 0 0 8px rgba(255, 0, 92, 0.2);
+}
+
+/* BOTÓN */
 .search button {
-  padding: 12px 18px;
+  padding: 14px 22px;
   border: none;
   background: #ff005c;
   color: white;
   cursor: pointer;
-  border-radius: 0 8px 8px 0;
+
+  border-radius: 0 10px 10px 0;
   font-family: inherit;
-  transition: 0.2s;
-  box-shadow: 0 0 15px rgba(255, 0, 92, 0.3);
+
+  transition: all 0.25s ease;
+
+  box-shadow:
+    0 0 15px rgba(255, 0, 92, 0.4),
+    0 0 30px rgba(255, 0, 92, 0.2);
 }
 
+/* HOVER BOTÓN */
 .search button:hover {
   background: #ff2b73;
-  box-shadow: 0 0 25px rgba(255, 0, 92, 0.6);
+  transform: scale(1.05);
+
+  box-shadow:
+    0 0 25px rgba(255, 0, 92, 0.7),
+    0 0 40px rgba(255, 0, 92, 0.4);
+}
+
+/* CLICK */
+.search button:active {
+  transform: scale(0.97);
 }
 
 /* =========================
@@ -274,8 +316,45 @@ body {
 }
 
 /* =========================
+   BANNER HERO
+========================= */
+.banner {
+  position: relative;
+  margin: 20px auto 30px;
+  padding: 35px 25px;
+  border-radius: 16px;
+  text-align: center;
+
+  background: linear-gradient(135deg, rgba(255, 0, 92, 0.15), rgba(0, 0, 0, 0.6));
+  border: 1px solid rgba(255, 0, 92, 0.2);
+
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 0, 92, 0.2);
+}
+
+.banner h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #ffffff;
+
+  text-shadow:
+    0 0 8px rgba(255, 0, 92, 0.6),
+    0 0 20px rgba(255, 0, 92, 0.4);
+}
+
+.banner p {
+  font-size: 0.95rem;
+  opacity: 0.7;
+  color: #ccc;
+}
+
+/* =========================
    RESPONSIVE
 ========================= */
+
+
 
 /* 💻 TABLET */
 @media (max-width: 1024px) {
@@ -312,6 +391,19 @@ body {
 
   .title {
     font-size: 1.8rem;
+  }
+
+  /* 🔥 BANNER */
+  .banner {
+    padding: 25px 15px;
+  }
+
+  .banner h2 {
+    font-size: 1.4rem;
+  }
+
+  .banner p {
+    font-size: 0.85rem;
   }
 
   .card img {

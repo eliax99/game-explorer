@@ -7,13 +7,11 @@ import useGameSearch from "../hooks/useGameSearch";
 
 function HomePage() {
   const { games, loading, fetchGames } = useContext(GameContext);
-
   const { search, setSearch, handleSearch } = useGameSearch(fetchGames);
 
-  // 🔥 RESET COMPLETO
   const handleReset = () => {
-    setSearch(""); // limpia input
-    fetchGames(); // vuelve a traer juegos iniciales
+    setSearch("");
+    fetchGames();
   };
 
   const renderedGames = useMemo(() => {
@@ -24,10 +22,17 @@ function HomePage() {
 
   return (
     <div className="page">
-      {/* 🔥 TITULO (RESET + HOME) */}
+
+      {/* 🔥 TITULO */}
       <Link to="/" className="titleLink" onClick={handleReset}>
         <h1 className="title">Game Explorer 🎮</h1>
       </Link>
+
+      {/* 🚀 BANNER */}
+      <div className="banner">
+        <h2>Encuentra tu próxima aventura</h2>
+        <p>Descubre nuevos mundos, historias y desafíos</p>
+      </div>
 
       {/* 🔍 SEARCH */}
       <div className="search">
@@ -42,7 +47,6 @@ function HomePage() {
             }
           }}
         />
-
         <button onClick={handleSearch}>Buscar</button>
       </div>
 

@@ -7,7 +7,7 @@ function GameCard({ game }) {
 
       <div className="cardInfo">
         <h3>{game.name}</h3>
-        <p>📅 {game.release_date?.slice(0, 4)}</p>
+        <p>{game.year}</p>
         <span>{game.genre}</span>
       </div>
     </Link>
