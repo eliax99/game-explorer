@@ -1,16 +1,27 @@
-# React + Vite
+# Documentación del uso de IA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Durante el desarrollo del proyecto he utilizado inteligencia artificial de forma bastante constante como apoyo, ya que ha sido una herramienta clave para poder avanzar con el código y entender muchas partes de React.
 
-Currently, two official plugins are available:
+La he usado sobre todo para:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Entender cómo funcionan conceptos de React (hooks, context, router, etc.)
+- Resolver errores que iban apareciendo durante el desarrollo
+- Generar ejemplos de código que luego adaptaba
+- Apoyarme en estilos CSS cuando me atascaba
 
-## React Compiler
+En muchos casos ha sido necesaria para poder sacar adelante el proyecto, pero siempre he intentado revisar el código, probarlo y adaptarlo para entender cómo funciona dentro de la aplicación.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+# Tiempos de desarrollo
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Setup del proyecto (Vite + React) | 1h
+Context + conexión con API | 1h
+HomePage | 1h
+GameCard | 30m
+GameDetailPage | 30m
+Hook de búsqueda | 30m
+Loader | 10m
+CSS / diseño general | 1h
+Tests | 20m
+Deploy | 30m
+Revisión y mejoras / actualizaciones de funciones | 3h
